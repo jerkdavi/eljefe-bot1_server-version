@@ -40,7 +40,7 @@
 
 		var sender = message.author; // The person who sent the message.
 		var input = message.content.toUpperCase(); // Turns the message to Uppercase, ignoring case sensitivity.
-		var prefix = '>'; // This will be your prefix, you can change it.
+		var prefix = process.env.prefix; // This will be your prefix, you can change it.
 		var swearword;
 		
 		// First, we need to make sure that it isn't reading a message that the bot is sending.
