@@ -1,5 +1,5 @@
 	/*jshint esversion: 6 */
-	require('dotenv').config(); // Requiring for modules. Calling the package.
+	//require('dotenv').config(); // Requiring for modules. Calling the package.
 
 	var Discord = require('discord.js');
 	var bot = new Discord.Client();
