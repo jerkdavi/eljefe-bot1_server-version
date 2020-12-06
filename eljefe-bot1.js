@@ -94,7 +94,7 @@
 		if(input.startsWith(prefix + 'CLR')){
 			var clrcommand = input.toString().split(' ');
 			if(!clrcommand[1]){
-				message.channel.send('Error! Please specify the number of messages to clear e.g. <clear 10');
+				message.channel.send('Error! Please specify the number of messages to clear e.g. <clr 10');
 				return;
 			}
 			if(sender.id === '764170607004745739'){
