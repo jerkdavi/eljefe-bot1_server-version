@@ -1,7 +1,7 @@
 List of Commands:
 
->help or >commands - Returns this List of Commands
->ping - Pings the bot
->userinfo - Returns your user info
->userinfo [x] - Returns [x]'s user info
->clr xx - Clears the inputed number of messages
+<help or <commands - Returns this List of Commands
+<ping - Pings the bot
+<userinfo - Returns your user info
+<userinfo [x] - Returns [x]'s user info --> Still working on this!
+<clr xx - Clears the inputed number of messages
