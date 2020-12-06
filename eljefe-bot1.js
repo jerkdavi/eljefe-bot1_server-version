@@ -37,7 +37,8 @@
 		var sender = message.author;
 		var input = message.content.toUpperCase();
 
-		if(sender.id === '781250071215472640'){
+		if((sender.id === '781250071215472640') || (sender.id === '781277535232458763')){
+			console.log('Sender is a bot!');
 			return;
 		}
 
