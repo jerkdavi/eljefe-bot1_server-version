@@ -7,7 +7,7 @@
 		"start": "node eljefe-bot1.js"
 	},
 	"keywords": [],
-	"author": "EllJeffe",
+	"author": "ElJefe",
 	"license": "ISC",
 	"dependencies": {
 		"discord.js": "^12.5.1"
