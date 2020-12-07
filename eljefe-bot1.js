@@ -143,6 +143,9 @@
 				return;
 			}
 		}
+		console.log("Promise Resolved");
+	}).catch('message', function(message){
+		console.log("Promise Rejected");
 	});
 
 	bot.on('ready', function(ready){
@@ -160,6 +163,9 @@
 			description:`Hey ${member}, welcome to **ElJefe Discord Server**! Make sure to read and follow all rules.`,
 			color:0x2471A3
 		}})
+		console.log("Promise Resolved");
+	}).catch('guildMemberAdd', function(member){
+		console.log("Promise Rejected");
 	});
 
 	bot.on('guildMemberRemove', function(member){
@@ -171,6 +177,9 @@
 			description:`User ${member.user.username} left the **ElJefe Discord Server**. We're sorry to see you go :disappointed_relieved:.`,
 			color:0x2471A3
 		}})
+		console.log("Promise Resolved");
+	}).catch('guildMemberRemove', function(member){
+		console.log("Promise Rejected");
 	});
 
 	bot.login(process.env.DISCORD_TOKEN);
