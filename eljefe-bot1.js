@@ -36,37 +36,36 @@
 		}
 
 		if(input === prefix + 'HELP'){
-			message.delete();
 			message.channel.send({embed:{
-				title:'<help',
 				description:commandsList,
 				color:0x2471A3
 			}})
+			console.log('<help');
 		}
 		if(input === prefix + 'COMMANDS'){
-			message.delete();
 			message.channel.send({embed:{
-				title:'<commands',
 				description:commandsList,
 				color:0x2471A3
 			}})
+			console.log('<commands');
 		}
 
 		if(input === prefix + 'PING'){
-			message.delete();
 			message.channel.send({embed:{
-				title:'<ping',
 				description:`Ping successful! The bot ${bot.user.tag}! is online!`,
 				color:0x2471A3
 			}})
+			console.log('<ping');
 		}
 
 		if(!userData[sender.id]){
 			userData[sender.id] = {
 				messagesSent: 0 };
+			console.log('Set messages to 0 for user -' +sender.id+'-!');
 		}
 		userData[sender.id].messagesSent++;
 		fs.writeFile('Storage/userData.json', JSON.stringify(userData), (err) => {
+			console.log('Writting data to \'Storage/userData.json\'');
 			if(err){
 				console.error(err);
 			}
@@ -75,6 +74,7 @@
 		if(!profanities2[sender.id]){
 			profanities2[sender.id] = {
 				swearwords: 0 };
+				console.log('Set profanities to 0 for user -' +sender.id+'-!');
 		}
 
 		for(x = 0; x < profanities.length; x++){
@@ -83,6 +83,7 @@
 
 				profanities2[sender.id].swearwords++;
 				fs.writeFile('Storage/profanities2.json', JSON.stringify(profanities2), (err) => {
+					console.log('Writting data to \'Storage/profanities2.json\'');
 					if(err){
 						console.error(err);
 					}
@@ -90,49 +91,40 @@
 
 				message.delete();
 				sender.send({embed:{
-					title:swearword,
 					description:'Hey! Word **' + swearword + '** is not allowed on our server. Please don\'t use it!',
 					color:0x2471A3
 				}})
+				console.log('Sent message for using profanities to -' +sender.id+'-!');
 				return;
 			}
 		}
 
 		if(input.startsWith(prefix + 'USERINFO')){
-			message.delete();
 			var uicommand = input.toString().split(' ');
 			if(!uicommand[1]){
 				message.channel.send({embed:{
-					title:'<userinfo',
 					description:userInfo(sender),
 					color:0x2471A3
 				}})
+				console.log('<userinfo');
 			}
 			// !!!***JAKO BITNO!!!*** Složiti za ostale usere
 		}
 
 		if(input.startsWith(prefix + 'CLR')){
-			message.delete();
 			var clrcommand = input.toString().split(' ');
 			if(!clrcommand[1]){
 				message.channel.send({embed:{
-					title:'<clr ?',
 					description:'Error! Please specify the number of messages to clear e.g. <clr 10',
 					color:0x2471A3
 				}})
-				return;
-			}
-			if(clrcommand[1] === 0){
-				message.channel.send({embed:{
-					title:'<clr '+clrcommand[1],
-					description:'Error! Cannot delete 0 messages. Specify a number greater than 0.',
-					color:0x2471A3
-				}})
+				console.log('<clr ?');
 				return;
 			}
 			if(sender.id === '764170607004745739'){
 				nmb=Number(clrcommand[1]);
 				message.channel.bulkDelete(nmb);
+				console.log('Cleared -'+nmb+'- messages!');
 			}
 			else{
 				message.channel.send({embed:{
@@ -140,6 +132,7 @@
 					description:'You do not have permissions to request the deletion of messages on this server!',
 					color:0x2471A3
 				}})
+				console.log('User -'+sender.id+'- tried to use <clr without permissions!');
 				return;
 			}
 		}
