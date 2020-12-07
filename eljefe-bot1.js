@@ -133,10 +133,10 @@
 			if(sender.id === '764170607004745739'){
 				nmb=Number(clrcommand[1]);
 				message.channel.bulkDelete(nmb,true).then(message => {
-					console.log('TO BRE!!!)
+					console.log('TO BRE!!!')
 					console.log(`${msg.size} is deleted!`)
 				}).catch(err=>{
-					console.log('JAO BRE!!!)
+					console.log('JAO BRE!!!')
 					console.log(err)
 				})
 			}
