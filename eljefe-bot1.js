@@ -119,7 +119,7 @@
 			var clrcommand = input.toString().split(' ');
 			if(!clrcommand[1]){
 				message.channel.send({embed:{
-					title:'<clr [x]',
+					title:'<clr ?',
 					description:'Error! Please specify the number of messages to clear e.g. <clr 10',
 					color:0x2471A3
 				}})
@@ -131,7 +131,7 @@
 			}
 			else{
 				message.channel.send({embed:{
-					title:'<clr [x]',
+					title:'<clr '+clrcommand[1]',
 					description:'You do not have permissions to request the deletion of messages on this server!',
 					color:0x2471A3
 				}})
@@ -151,7 +151,6 @@
 		console.log('User ' + member.user.username + ' has joined the server!');
 		var channel = bot.channels.cache.get('778340125389488169');
 		channel.send({embed:{
-			title:'<help',
 			description:`Hey ${member}, welcome to **ElJefe Discord Server**! Make sure to read and follow all rules.`,
 			color:0x2471A3
 		}})
@@ -162,7 +161,6 @@
 		console.log('User ' + member.user.username + ' has left the server!');
 		var channel = bot.channels.cache.get('783416981776498748');
 		channel.send({embed:{
-			title:'<help',
 			description:`User ${member.user.username} left the **ElJefe Discord Server**. We're sorry to see you go :disappointed_relieved:.`,
 			color:0x2471A3
 		}})
