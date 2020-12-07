@@ -47,7 +47,14 @@
 		}
 
 		if(input === prefix + 'PING'){
-			message.channel.send('Ping successful! The bot is online!');
+			// We will be going over embeds, so lets test it out with the ping command.
+			message.channel.send({embed:{// The start of it is usually the same, and it looks like this.
+				title:"Ping!",
+				description:"Ping successful! The bot is online!",
+				color:0x2471A3//Colors can be found on a website that will also be in the description. Remember to put a 0x before all of the numbers.
+				
+			}})// A link of the objects you can put in the embed will be in the description.
+			//message.channel.send('Ping successful! The bot is online!');
 		}
 
 		if(!userData[sender.id]){
