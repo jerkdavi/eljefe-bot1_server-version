@@ -16,20 +16,13 @@
 
 	function userInfo(user){
 		var finalString = '';
-		finalString += '**User Info:**\n';
-
-		finalString += 'User name: **' + user.username + '**\n';
-		finalString += 'User ID: **' + user.id + '**\n';
+		finalString += '**User Info:**\nUser name: **' + user.username + '**\nUser ID: **' + user.id + '**\n';
 
 		var userCreated = user.createdAt.toString().split(' ');
 		finalString += 'Date created **' + userCreated[1] + ' ' + userCreated[2] + ', ' + userCreated[3] + '**\n';
 
-		if(userData[user.id].messagesSent === 1){
-			finalString += 'Message sent to this server: **' + userData[user.id].messagesSent + '** message';
-		}
-		else{
-			finalString += 'Message sent to this server: **' + userData[user.id].messagesSent + '** messages';
-		}
+		if(userData[user.id].messagesSent === 1){ finalString += 'Message sent to this server: **' + userData[user.id].messagesSent + '** message'; }
+		else{ finalString += 'Message sent to this server: **' + userData[user.id].messagesSent + '** messages'; }
 		return finalString;
 	}
 
@@ -60,7 +53,7 @@
 		if(input === prefix + 'PING'){
 			message.channel.send({embed:{
 				title:'<ping',
-				description:'Ping successful! The bot is online!',
+				description:`Ping successful! The bot ${bot.user.tag}! is online!`,
 				color:0x2471A3
 			}})
 		}
@@ -151,6 +144,7 @@
 		console.log('User ' + member.user.username + ' has joined the server!');
 		var channel = bot.channels.cache.get('778340125389488169');
 		channel.send({embed:{
+			title:'Welcome!',
 			description:`Hey ${member}, welcome to **ElJefe Discord Server**! Make sure to read and follow all rules.`,
 			color:0x2471A3
 		}})
@@ -161,6 +155,7 @@
 		console.log('User ' + member.user.username + ' has left the server!');
 		var channel = bot.channels.cache.get('783416981776498748');
 		channel.send({embed:{
+			title:'Farewell!',
 			description:`User ${member.user.username} left the **ElJefe Discord Server**. We're sorry to see you go :disappointed_relieved:.`,
 			color:0x2471A3
 		}})
