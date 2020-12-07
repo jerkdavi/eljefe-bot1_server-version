@@ -42,9 +42,16 @@
 			return;
 		}
 
-		if(input === prefix + 'HELP' || input === prefix + 'COMMANDS'){
+		if(input === prefix + 'HELP'){
 			message.channel.send({embed:{
-				title:"Ping!",
+				title:'<help',
+				description:commandsList,
+				color:0x2471A3
+			}})
+		}
+		if(input === prefix + 'COMMANDS'){
+			message.channel.send({embed:{
+				title:'<commands',
 				description:commandsList,
 				color:0x2471A3
 			}})
@@ -52,8 +59,8 @@
 
 		if(input === prefix + 'PING'){
 			message.channel.send({embed:{
-				title:"Ping!",
-				description:"Ping successful! The bot is online!",
+				title:'<ping',
+				description:'Ping successful! The bot is online!',
 				color:0x2471A3
 			}})
 		}
@@ -86,7 +93,11 @@
 				});
 
 				message.delete();
-				sender.send('Hey! Word **' + swearword + '** is not allowed on our server. Please don\'t use it!');
+				sender.send({embed:{
+					title:swearword,
+					description:'Hey! Word **' + swearword + '** is not allowed on our server. Please don\'t use it!',
+					color:0x2471A3
+				}})
 				return;
 			}
 		}
@@ -95,7 +106,11 @@
 
 			var uicommand = input.toString().split(' ');
 			if(!uicommand[1]){
-				message.channel.send(userInfo(sender));
+				message.channel.send({embed:{
+					title:'<userinfo',
+					description:userInfo(sender),
+					color:0x2471A3
+				}})
 			}
 			// !!!***JAKO BITNO!!!*** Složiti za ostale usere
 		}
@@ -103,7 +118,11 @@
 		if(input.startsWith(prefix + 'CLR')){
 			var clrcommand = input.toString().split(' ');
 			if(!clrcommand[1]){
-				message.channel.send('Error! Please specify the number of messages to clear e.g. <clr 10');
+				message.channel.send({embed:{
+					title:'<clr [x]',
+					description:'Error! Please specify the number of messages to clear e.g. <clr 10',
+					color:0x2471A3
+				}})
 				return;
 			}
 			if(sender.id === '764170607004745739'){
@@ -111,7 +130,11 @@
 				message.channel.bulkDelete(nmb);
 			}
 			else{
-				message.channel.send('You do not have permissions to request the deletion of messages on this server!');
+				message.channel.send({embed:{
+					title:'<clr [x]',
+					description:'You do not have permissions to request the deletion of messages on this server!',
+					color:0x2471A3
+				}})
 				return;
 			}
 		}
@@ -127,14 +150,22 @@
 
 		console.log('User ' + member.user.username + ' has joined the server!');
 		var channel = bot.channels.cache.get('778340125389488169');
-		channel.send(`Hey ${member}, welcome to **ElJefe Discord Server**! Make sure to read and follow all rules.`);
+		channel.send({embed:{
+			title:'<help',
+			description:`Hey ${member}, welcome to **ElJefe Discord Server**! Make sure to read and follow all rules.`,
+			color:0x2471A3
+		}})
 	});
 
 	bot.on('guildMemberRemove', function(member){
 
 		console.log('User ' + member.user.username + ' has left the server!');
 		var channel = bot.channels.cache.get('783416981776498748');
-		channel.send(`User ${member.user.username} left the **ElJefe Discord Server**. We're sorry to see you go :disappointed_relieved:.`);
+		channel.send({embed:{
+			title:'<help',
+			description:`User ${member.user.username} left the **ElJefe Discord Server**. We're sorry to see you go :disappointed_relieved:.`,
+			color:0x2471A3
+		}})
 	});
 
 	bot.login(process.env.DISCORD_TOKEN);
