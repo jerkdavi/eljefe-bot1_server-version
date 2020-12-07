@@ -112,6 +112,7 @@
 		}
 
 		if(input.startsWith(prefix + 'CLR')){
+			message.delete();
 			var clrcommand = input.toString().split(' ');
 			if(!clrcommand[1]){
 				message.channel.send({embed:{
@@ -122,7 +123,7 @@
 				return;
 			}
 			if(sender.id === '764170607004745739'){
-				nmb=Number(clrcommand[1]+1);
+				nmb=Number(clrcommand[1]);
 				message.channel.bulkDelete(nmb);
 			}
 			else{
