@@ -31,7 +31,6 @@
 		var input = message.content.toUpperCase();
 
 		if((sender.id === '781250071215472640') || (sender.id === '781277535232458763')){
-			console.log('Sender is a bot!');
 			return;
 		}
 
@@ -40,14 +39,12 @@
 				description:commandsList,
 				color:0x2471A3
 			}})
-			console.log('<help');
 		}
 		if(input === prefix + 'COMMANDS'){
 			message.channel.send({embed:{
 				description:commandsList,
 				color:0x2471A3
 			}})
-			console.log('<commands');
 		}
 
 		if(input === prefix + 'PING'){
@@ -55,17 +52,14 @@
 				description:`Ping successful! The bot ${bot.user.tag}! is online!`,
 				color:0x2471A3
 			}})
-			console.log('<ping');
 		}
 
 		if(!userData[sender.id]){
 			userData[sender.id] = {
 				messagesSent: 0 };
-			console.log('Set messages to 0 for user -' +sender.id+'-!');
 		}
 		userData[sender.id].messagesSent++;
 		fs.writeFile('Storage/userData.json', JSON.stringify(userData), (err) => {
-			console.log('Writting data to \'Storage/userData.json\'');
 			if(err){
 				console.error(err);
 			}
@@ -74,7 +68,6 @@
 		if(!profanities2[sender.id]){
 			profanities2[sender.id] = {
 				swearwords: 0 };
-				console.log('Set profanities to 0 for user -' +sender.id+'-!');
 		}
 
 		for(x = 0; x < profanities.length; x++){
@@ -83,7 +76,6 @@
 
 				profanities2[sender.id].swearwords++;
 				fs.writeFile('Storage/profanities2.json', JSON.stringify(profanities2), (err) => {
-					console.log('Writting data to \'Storage/profanities2.json\'');
 					if(err){
 						console.error(err);
 					}
@@ -94,7 +86,6 @@
 					description:'Hey! Word **' + swearword + '** is not allowed on our server. Please don\'t use it!',
 					color:0x2471A3
 				}})
-				console.log('Sent message for using profanities to -' +sender.id+'-!');
 				return;
 			}
 		}
@@ -106,7 +97,6 @@
 					description:userInfo(sender),
 					color:0x2471A3
 				}})
-				console.log('<userinfo');
 			}
 			// !!!***JAKO BITNO!!!*** Složiti za ostale usere
 		}
@@ -118,7 +108,6 @@
 					description:'Error! Please specify the number of messages to clear e.g. <clr 10',
 					color:0x2471A3
 				}})
-				console.log('<clr ?');
 				return;
 			}
 			if((clrcommand[1] < 1) || (clrcommand[1] > 99)){
@@ -126,20 +115,17 @@
 					description:'You need to enter a number between 1 and 99!',
 					color:0x2471A3
 				}})
-				console.log('Wrong input number!');
 			}
 			else{
 				if(sender.id === '764170607004745739'){
 					nmb=Number(clrcommand[1])+1;
 					message.channel.bulkDelete(nmb);
-					console.log('Cleared -'+nmb+'- messages!');
 				}
 				else{
 					message.channel.send({embed:{
 						description:'You do not have permissions to request the deletion of messages on this server!',
 						color:0x2471A3
 					}})
-					console.log('User -'+sender.id+'- tried to use <clr without permissions!');
 					return;
 				}
 			}
@@ -154,7 +140,6 @@
 
 	bot.on('guildMemberAdd', function(member){
 
-		console.log('User ' + member.user.username + ' has joined the server!');
 		var channel = bot.channels.cache.get('778340125389488169');
 		channel.send({embed:{
 			description:`Hey ${member}, welcome to **ElJefe Discord Server**! Make sure to read and follow all rules.`,
@@ -164,7 +149,6 @@
 
 	bot.on('guildMemberRemove', function(member){
 
-		console.log('User ' + member.user.username + ' has left the server!');
 		var channel = bot.channels.cache.get('783416981776498748');
 		channel.send({embed:{
 			description:`User ${member.user.username} left the **ElJefe Discord Server**. We're sorry to see you go :disappointed_relieved:.`,
