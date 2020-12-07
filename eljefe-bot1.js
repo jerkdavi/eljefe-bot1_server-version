@@ -121,19 +121,27 @@
 				console.log('<clr ?');
 				return;
 			}
-			if(sender.id === '764170607004745739'){
-				nmb=Number(clrcommand[1]);
-				message.channel.bulkDelete(nmb);
-				console.log('Cleared -'+nmb+'- messages!');
-			}
-			else{
+			if((clrcommand[1] < 1) || (clrcommand[1] > 99)){
 				message.channel.send({embed:{
-					title:'<clr '+clrcommand[1],
-					description:'You do not have permissions to request the deletion of messages on this server!',
+					description:'You need to enter a number between 1 and 99!',
 					color:0x2471A3
 				}})
-				console.log('User -'+sender.id+'- tried to use <clr without permissions!');
-				return;
+				console.log('Wrong input number!');
+			}
+			else{
+				if(sender.id === '764170607004745739'){
+					nmb=Number(clrcommand[1])+1;
+					message.channel.bulkDelete(nmb);
+					console.log('Cleared -'+nmb+'- messages!');
+				}
+				else{
+					message.channel.send({embed:{
+						description:'You do not have permissions to request the deletion of messages on this server!',
+						color:0x2471A3
+					}})
+					console.log('User -'+sender.id+'- tried to use <clr without permissions!');
+					return;
+				}
 			}
 		}
 	});
@@ -149,7 +157,6 @@
 		console.log('User ' + member.user.username + ' has joined the server!');
 		var channel = bot.channels.cache.get('778340125389488169');
 		channel.send({embed:{
-			title:'Welcome!',
 			description:`Hey ${member}, welcome to **ElJefe Discord Server**! Make sure to read and follow all rules.`,
 			color:0x2471A3
 		}})
@@ -160,7 +167,6 @@
 		console.log('User ' + member.user.username + ' has left the server!');
 		var channel = bot.channels.cache.get('783416981776498748');
 		channel.send({embed:{
-			title:'Farewell!',
 			description:`User ${member.user.username} left the **ElJefe Discord Server**. We're sorry to see you go :disappointed_relieved:.`,
 			color:0x2471A3
 		}})
