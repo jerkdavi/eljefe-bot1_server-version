@@ -3,21 +3,32 @@
 	var Discord = require('discord.js');
 	var bot = new Discord.Client();
 	var fs = require('fs');
-	var ytdl = require('ytdl-core');
+
+	var userData = JSON.parse(fs.readFileSync('Storage/userData.json', 'utf8'));
+	var profanities = JSON.parse(fs.readFileSync('Storage/profanities.json', 'utf8'));
+	var profanities2 = JSON.parse(fs.readFileSync('Storage/profanities2.json', 'utf8'));
 
 	var commandsList = fs.readFileSync('Storage/commands.txt', 'utf8');
 
 	var prefix = process.env.prefix;
 	var owner = process.env.ownerID;
+	var swearword;
 
-	var servers = {};
-	var server;
-	var joinstatus='waiting';
+	function userInfo(user){
+		var finalString = '';
+		finalString += '**User Info:**\nUser name: **' + user.username + '**\nUser ID: **' + user.id + '**\n';
+
+		var userCreated = user.createdAt.toString().split(' ');
+		finalString += 'Date created **' + userCreated[1] + ' ' + userCreated[2] + ', ' + userCreated[3] + '**\n';
+
+		if(userData[user.id].messagesSent === 1){ finalString += 'Message sent to this server: **' + userData[user.id].messagesSent + '** message'; }
+		else{ finalString += 'Message sent to this server: **' + userData[user.id].messagesSent + '** messages'; }
+		return finalString;
+	}
 
 	bot.on('message', function(message){
 		var sender = message.author;
-		var args = message.content.toString().split(' ');
-		var input = args[0].toUpperCase();
+		var input = message.content.toUpperCase();
 
 		if((sender.id === '781250071215472640') || (sender.id === '781277535232458763')){
 			console.log('Sender is a bot!');
@@ -27,7 +38,7 @@
 		if(input === prefix + 'HELP'){
 			message.delete();
 			message.channel.send({embed:{
-				title:'>help',
+				title:'<help',
 				description:commandsList,
 				color:0x2471A3
 			}})
@@ -35,7 +46,7 @@
 		if(input === prefix + 'COMMANDS'){
 			message.delete();
 			message.channel.send({embed:{
-				title:'>commands',
+				title:'<commands',
 				description:commandsList,
 				color:0x2471A3
 			}})
@@ -44,156 +55,122 @@
 		if(input === prefix + 'PING'){
 			message.delete();
 			message.channel.send({embed:{
-				title:'>ping',
+				title:'<ping',
 				description:`Ping successful! The bot ${bot.user.tag}! is online!`,
 				color:0x2471A3
 			}})
 		}
 
-		if(input === prefix + 'PLAY'){
-			console.log('args[0]: '+args[0]);
-			console.log('args[1]: '+args[1]);
-			if(!args[1]){
-				message.delete();
-				message.channel.send({embed:{
-					title:'>play ?',
-					description:'You need to provide a link!',
-					color:0x2471A3
-				}})
-				return;
+		if(!userData[sender.id]){
+			userData[sender.id] = {
+				messagesSent: 0 };
+		}
+		userData[sender.id].messagesSent++;
+		fs.writeFile('Storage/userData.json', JSON.stringify(userData), (err) => {
+			if(err){
+				console.error(err);
 			}
-			if(!(ytdl.validateURL(args[1]))){
-				message.delete();
-				message.channel.send({embed:{
-					title:'>play '+args[1],
-					description:'You didn\'t provide a valid youtube link!',
-					color:0x2471A3
-				}})
-				console.log('Invalid youtube link!');
-				return;
-			}
-			else{
-				if(!message.member.voice.channel){
-					message.delete();
-					message.channel.send({embed:{
-						description:'You must be in a voice channel to play the music!',
-						color:0x2471A3
-					}})
-					return;
-				}
-				if(!servers[message.guild.id]){
-					servers[message.guild.id] = {
-						queue: []
-						};
-					console.log('Queue created!');
-				}
-				server = servers[message.guild.id];
-				server.queue.push(args[1]);
-				console.log('Queue push passed!');
-				message.delete();
-				message.channel.send({embed:{
-						title:'>play '+args[1],
-						description:'Added to the queue!',
-						color:0x2471A3
-					}})
+		});
 
-				function play(connection, message){
-					server = servers[message.guild.id];
-					server.dispatcher = connection.play(ytdl(server.queue[0], {filter: 'audioonly'}));
-					server.queue.shift();
-					console.log('Queue shift passed!');
-					message.channel.send({embed:{
-						title:'>play '+args[1],
-						description:'Playing the song!',
-						color:0x2471A3
-					}})
+		if(!profanities2[sender.id]){
+			profanities2[sender.id] = {
+				swearwords: 0 };
+		}
 
-					server.dispatcher.on('finish', () => {
-						if(server.queue[0]){
-							play(connection, message);
-							console.log('If passed!');
-						} else {
-							connection.disconnect();
-							console.log('Else passed!');
-							joinstatus='waiting';
-							servers[message.guild.id] = '';
-						}
-					});
-				}
-			}
+		for(x = 0; x < profanities.length; x++){
+			swearword = profanities[x].toUpperCase();
+			if(input.includes(swearword)){
 
-			if(joinstatus==='joined'){
-				console.log('I\'m already in the voice channel!');
-			}
-
-			else{
-				message.member.voice.channel.join().then(function(connection){
-					message.channel.send({embed:{
-						description:'Joined the voice channel!',
-						color:0x2471A3
-					}})
-					play(connection, message);
-					console.log('Joined the voice channel!');
-					joinstatus='joined';
+				profanities2[sender.id].swearwords++;
+				fs.writeFile('Storage/profanities2.json', JSON.stringify(profanities2), (err) => {
+					if(err){
+						console.error(err);
+					}
 				});
-			}
-		}
 
-		if(input === prefix + 'SKIP'){
-			if(joinstatus==='joined'){
-				server = servers[message.guild.id];
-				if(server.dispatcher){
-					server.dispatcher.end();
-				}
 				message.delete();
-				message.channel.send({embed:{
-					title:'>skip',
-					description:'Skipping the song!',
+				sender.send({embed:{
+					title:swearword,
+					description:'Hey! Word **' + swearword + '** is not allowed on our server. Please don\'t use it!',
 					color:0x2471A3
 				}})
-				console.log('Skipped the queue!');
-			}
-			else{
-				message.delete();
-				message.channel.send({embed:{
-					title:'>skip ?',
-					description:'There are no songs! What are you skipping?',
-					color:0x2471A3
-				}})
-				message.channel.send();
 				return;
 			}
 		}
 
-		if(input === prefix + 'STOP'){
-			if(joinstatus==='joined'){
-				server = servers[message.guild.id];
-				server.dispatcher.end();
-				message.delete();
+		if(input.startsWith(prefix + 'USERINFO')){
+			message.delete();
+			var uicommand = input.toString().split(' ');
+			if(!uicommand[1]){
 				message.channel.send({embed:{
-					title:'>stop',
-					description:'Ending the queue. Leaving the voice channel!',
+					title:'<userinfo',
+					description:userInfo(sender),
 					color:0x2471A3
 				}})
-				message.channel.send();
+			}
+			// !!!***JAKO BITNO!!!*** Složiti za ostale usere
+		}
+
+		if(input.startsWith(prefix + 'CLR')){
+			message.delete();
+			var clrcommand = input.toString().split(' ');
+			if(!clrcommand[1]){
+				message.channel.send({embed:{
+					title:'<clr ?',
+					description:'Error! Please specify the number of messages to clear e.g. <clr 10',
+					color:0x2471A3
+				}})
+				return;
+			}
+			if(clrcommand[1] === 0){
+				message.channel.send({embed:{
+					title:'<clr '+clrcommand[1],
+					description:'Error! Cannot delete 0 messages. Specify a number greater than 0.',
+					color:0x2471A3
+				}})
+				return;
+			}
+			if(sender.id === '764170607004745739'){
+				nmb=Number(clrcommand[1]);
+				message.channel.bulkDelete(nmb);
 			}
 			else{
-				message.delete();
 				message.channel.send({embed:{
-					title:'>stop ?',
-					description:'There are no songs! What are you stoping?',
+					title:'<clr '+clrcommand[1],
+					description:'You do not have permissions to request the deletion of messages on this server!',
 					color:0x2471A3
 				}})
-				console.log('There are no songs! What are you stoping?');
 				return;
 			}
 		}
 	});
-	
+
 	bot.on('ready', function(ready){
 
 		console.log(`Logged in as ${bot.user.tag}!`);
 		bot.user.setStatus('Online');
+	});
+
+	bot.on('guildMemberAdd', function(member){
+
+		console.log('User ' + member.user.username + ' has joined the server!');
+		var channel = bot.channels.cache.get('778340125389488169');
+		channel.send({embed:{
+			title:'Welcome!',
+			description:`Hey ${member}, welcome to **ElJefe Discord Server**! Make sure to read and follow all rules.`,
+			color:0x2471A3
+		}})
+	});
+
+	bot.on('guildMemberRemove', function(member){
+
+		console.log('User ' + member.user.username + ' has left the server!');
+		var channel = bot.channels.cache.get('783416981776498748');
+		channel.send({embed:{
+			title:'Farewell!',
+			description:`User ${member.user.username} left the **ElJefe Discord Server**. We're sorry to see you go :disappointed_relieved:.`,
+			color:0x2471A3
+		}})
 	});
 
 	bot.login(process.env.DISCORD_TOKEN);
