@@ -26,11 +26,7 @@
 		return finalString;
 	}
 
-	bot.on('message', function(message), (err){
-		if(err){
-			console.error(err);
-		}
-
+	bot.on('message', function(message){
 		var sender = message.author;
 		var input = message.content.toUpperCase();
 
@@ -136,7 +132,11 @@
 			}
 			if(sender.id === '764170607004745739'){
 				nmb=Number(clrcommand[1]);
-				message.channel.bulkDelete(nmb);
+				message.channel.bulkDelete(nmb),true.then(message){
+					console.log(`${msg.size} is deleted!`)
+				}).catch(err=>{
+					console.log(err)
+				})
 			}
 			else{
 				message.channel.send({embed:{
@@ -149,19 +149,13 @@
 		}
 	});
 
-	bot.on('ready', function(ready), (err){
-		if(err){
-			console.error(err);
-		}
+	bot.on('ready', function(ready){
 
 		console.log(`Logged in as ${bot.user.tag}!`);
 		bot.user.setStatus('Online');
 	});
 
-	bot.on('guildMemberAdd', function(member), (err){
-		if(err){
-			console.error(err);
-		}
+	bot.on('guildMemberAdd', function(member){
 
 		console.log('User ' + member.user.username + ' has joined the server!');
 		var channel = bot.channels.cache.get('778340125389488169');
