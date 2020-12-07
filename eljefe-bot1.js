@@ -131,7 +131,7 @@
 			}
 			else{
 				message.channel.send({embed:{
-					title:'<clr '+clrcommand[1]',
+					title:'<clr '+clrcommand[1],
 					description:'You do not have permissions to request the deletion of messages on this server!',
 					color:0x2471A3
 				}})
