@@ -122,6 +122,14 @@
 				}})
 				return;
 			}
+			if(clrcommand[1] === 0){
+				message.channel.send({embed:{
+					title:'<clr '+clrcommand[1],
+					description:'Error! Cannot delete 0 messages. Specify a number greater than 0.',
+					color:0x2471A3
+				}})
+				return;
+			}
 			if(sender.id === '764170607004745739'){
 				nmb=Number(clrcommand[1]);
 				message.channel.bulkDelete(nmb);
