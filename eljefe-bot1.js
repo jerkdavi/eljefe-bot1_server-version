@@ -36,7 +36,7 @@
 		}
 
 		if(input === prefix + 'HELP'){
-			message.channel.bulkDelete(1);
+			message.delete();
 			message.channel.send({embed:{
 				title:'<help',
 				description:commandsList,
@@ -44,7 +44,7 @@
 			}})
 		}
 		if(input === prefix + 'COMMANDS'){
-			message.channel.bulkDelete(1);
+			message.delete();
 			message.channel.send({embed:{
 				title:'<commands',
 				description:commandsList,
@@ -53,7 +53,7 @@
 		}
 
 		if(input === prefix + 'PING'){
-			message.channel.bulkDelete(1);
+			message.delete();
 			message.channel.send({embed:{
 				title:'<ping',
 				description:`Ping successful! The bot ${bot.user.tag}! is online!`,
@@ -99,7 +99,7 @@
 		}
 
 		if(input.startsWith(prefix + 'USERINFO')){
-			message.channel.bulkDelete(1);
+			message.delete();
 			var uicommand = input.toString().split(' ');
 			if(!uicommand[1]){
 				message.channel.send({embed:{
@@ -112,7 +112,7 @@
 		}
 
 		if(input.startsWith(prefix + 'CLR')){
-			message.channel.bulkDelete(1);
+			message.delete();
 			var clrcommand = input.toString().split(' ');
 			if(!clrcommand[1]){
 				message.channel.send({embed:{
