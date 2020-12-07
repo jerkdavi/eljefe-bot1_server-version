@@ -132,7 +132,7 @@
 			}
 			if(sender.id === '764170607004745739'){
 				nmb=Number(clrcommand[1]);
-				message.channel.bulkDelete(nmb,true).then(message => {
+				message.channel.bulkDelete(nmb,true).then(msg => {
 					console.log('TO BRE!!!')
 					console.log(`${msg.size} is deleted!`)
 				}).catch(err=>{
