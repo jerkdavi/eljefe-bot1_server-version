@@ -21,8 +21,7 @@
 		var userCreated = user.createdAt.toString().split(' ');
 		finalString += 'Date created **' + userCreated[1] + ' ' + userCreated[2] + ', ' + userCreated[3] + '**\n';
 
-		if(userData[user.id].messagesSent === 1){ finalString += 'Message sent to this server: **' + userData[user.id].messagesSent + '** message'; }
-		else{ finalString += 'Message sent to this server: **' + userData[user.id].messagesSent + '** messages'; }
+		finalString += 'Message sent to this server: **' + userData[user.id].messagesSent + '** messages'; }
 		return finalString;
 	}
 
