@@ -10,5 +10,5 @@
 		}});
 	}
 	module.exports.config = {
-		command:'HELP' || 'COMMANDS'
+		command:'HELP'
 	}
