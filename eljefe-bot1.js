@@ -17,16 +17,16 @@
 		}
 			
 		var jsfiles = files.filter(f => f.split('.').pop() === 'js');
-		if(jsfiles.length <= 0) { return console.log('No commands found!') }
+		if(jsfiles.length <= 0) { return console.log('No commands found!'); }
 		else { console.log(jsfiles.length + ' commands found!'); }
 		
 		jsfiles.forEach((f, i) => {
 			var cmds = require(`./commands/${f}`);
 			console.log(`Command ${f} loading...`);
 			bot.commands.set(cmds.config.command, cmds);
-		})
+		});
 		
-	})
+	});
 	
 	var prefix = process.env.prefix;
 	var owner = process.env.ownerID;
@@ -44,9 +44,48 @@
 	}
 
 	bot.on('message', function(message){
+		if((sender.id === '781250071215472640') || (sender.id === '781277535232458763')){
+			return;
+		}
+		if(!userData[sender.id]){
+			userData[sender.id] = {
+			messagesSent: 0 };
+		}
+		userData[sender.id].messagesSent++;
+		fs.writeFile('Storage/userData.json', JSON.stringify(userData), (err) => {
+			if(err){
+				console.error(err);
+			}
+		});
+		if(!profanities2[sender.id]){
+			profanities2[sender.id] = {
+				swearwords: 0 };
+		}
+
+		var sender = message.author;
+		var input = message.content.toUpperCase();
+
+		for(var x = 0; x < profanities.length; x++){
+			swearword = profanities[x].toUpperCase();
+				if(input.includes(swearword)){
+
+				profanities2[sender.id].swearwords++;
+				fs.writeFile('Storage/profanities2.json', JSON.stringify(profanities2), (err) => {
+					if(err){
+						console.error(err);
+					}
+				});
+				message.delete();
+				sender.send({embed:{
+					description:'Hey! Word **' + swearword + '** is not allowed on our server. Please don\'t use it!',
+					color:0x2471A3
+				}});
+				return;
+			}
+		}
+
 		if(input.startsWith(prefix)){
-			var sender = message.author;
-			var input = message.content.toUpperCase();
+
 			var cont = input.slice(prefix.length).split(' ');
 			console.log('input: '+input);
 			console.log('prefix: '+prefix);
@@ -61,61 +100,18 @@
 				console.log('If passed!');
 			}
 
-			if((sender.id === '781250071215472640') || (sender.id === '781277535232458763')){
-				return;
-			}
-
 			if(input === prefix + 'HELP'){
 				message.channel.send({embed:{
 					description:commandsList,
 					color:0x2471A3
 				}});
 			}
-
 			if(input === prefix + 'COMMANDS'){
 				message.channel.send({embed:{
 					description:commandsList,
 					color:0x2471A3
 				}});
 			}
-
-			if(!userData[sender.id]){
-				userData[sender.id] = {
-					messagesSent: 0 };
-			}
-
-			userData[sender.id].messagesSent++;
-			fs.writeFile('Storage/userData.json', JSON.stringify(userData), (err) => {
-				if(err){
-					console.error(err);
-				}
-			});
-
-			if(!profanities2[sender.id]){
-				profanities2[sender.id] = {
-					swearwords: 0 };
-			}
-
-			for(var x = 0; x < profanities.length; x++){
-				swearword = profanities[x].toUpperCase();
-				if(input.includes(swearword)){
-
-					profanities2[sender.id].swearwords++;
-					fs.writeFile('Storage/profanities2.json', JSON.stringify(profanities2), (err) => {
-						if(err){
-							console.error(err);
-						}
-					});
-
-					message.delete();
-					sender.send({embed:{
-						description:'Hey! Word **' + swearword + '** is not allowed on our server. Please don\'t use it!',
-						color:0x2471A3
-					}});
-					return;
-				}
-			}
-
 			if(input.startsWith(prefix + 'USERINFO')){
 				var uicommand = input.toString().split(' ');
 				if(!uicommand[1]){
@@ -126,7 +122,6 @@
 				}
 				// !!!***JAKO BITNO!!!*** Složiti za ostale usere
 			}
-
 			if(input.startsWith(prefix + 'CLR')){
 				var clrcommand = input.toString().split(' ');
 				if(!clrcommand[1]){
@@ -159,7 +154,7 @@
 		}
 		else{
 			console.log('Wrong prefix!');
-			return
+			return;
 		}
 	});
 
