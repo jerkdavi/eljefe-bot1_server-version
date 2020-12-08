@@ -59,7 +59,7 @@
 		}
 
 		var cmd = bot.commands.get(cont[0]);
-		console.log('cmd: '+cmd);
+		console.log('cont[0]: '+cont[0]);
 		if(cmd) {
 			cmd.run(bot, message, args);
 			console.log('If passed!');
