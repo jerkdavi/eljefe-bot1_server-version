@@ -98,6 +98,9 @@
 				cmd.run(bot, message, args);
 				console.log('If passed!');
 			}
+			else{
+				console.log('Else passed!');
+			}
 
 			if(input === prefix + 'HELP'){
 				message.channel.send({embed:{
