@@ -19,15 +19,13 @@
 			return finalString;
 		}
 
-		message.channel.send({embed:{
-			if(!uicommand[1]){
-				message.channel.send({embed:{
-					description:userInfo(sender),
-					color:0x2471A3
-				}});
-			}
-			// !!!***JAKO BITNO!!!*** Složiti za ostale usere
-		}});
+		if(!uicommand[1]){
+			message.channel.send({embed:{
+				description:userInfo(sender),
+				color:0x2471A3
+			}});
+		}
+		// !!!***JAKO BITNO!!!*** Složiti za ostale usere
 	}
 	module.exports.config = {
 		command:'USERINFO'
