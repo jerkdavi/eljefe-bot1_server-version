@@ -44,6 +44,10 @@
 	}
 
 	bot.on('message', function(message){
+		if(!(input.startsWith(prefix))){
+			console.log('Wrong prefix!');
+			return;
+		}
 		var sender = message.author;
 		var input = message.content.toUpperCase();
 		var cont = input.slice(prefix.length).split(' ');
@@ -52,11 +56,6 @@
 		console.log('cont: '+cont);
 		var args = cont.slice(1);
 		console.log('args: '+args);
-		
-		if(!(input.startsWith(prefix))){
-			console.log('Wrong prefix!');
-			return;
-		}
 
 		var cmd = bot.commands.get(cont[0]);
 		console.log('cont[0]: '+cont[0]);
