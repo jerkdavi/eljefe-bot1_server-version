@@ -44,6 +44,9 @@
 	}
 
 	bot.on('message', function(message){
+		var sender = message.author;
+		var input = message.content.toUpperCase();
+
 		if((sender.id === '781250071215472640') || (sender.id === '781277535232458763')){
 			return;
 		}
@@ -61,10 +64,6 @@
 			profanities2[sender.id] = {
 				swearwords: 0 };
 		}
-
-		var sender = message.author;
-		var input = message.content.toUpperCase();
-
 		for(var x = 0; x < profanities.length; x++){
 			swearword = profanities[x].toUpperCase();
 				if(input.includes(swearword)){
