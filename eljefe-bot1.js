@@ -99,6 +99,7 @@
 				console.log('If passed!');
 			}
 			else{
+				cmd.run(bot, message, args);
 				console.log('Else passed!');
 			}
 
