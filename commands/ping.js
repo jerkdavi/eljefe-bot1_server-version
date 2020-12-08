@@ -7,5 +7,5 @@ module.exports.run = async (bot, message, args) => {
 	//}
 }
 module.exports.config = {
-	commands: 'ping'
+	commands: 'PING'
 }
