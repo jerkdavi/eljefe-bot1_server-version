@@ -8,7 +8,6 @@
 	var profanities = JSON.parse(fs.readFileSync('Storage/profanities.json', 'utf8'));
 	var profanities2 = JSON.parse(fs.readFileSync('Storage/profanities2.json', 'utf8'));
 
-	var commandsList = fs.readFileSync('Storage/commands.txt', 'utf8');
 	bot.commands = new Discord.Collection();
 
 	fs.readdir('./commands/', (err, files) => {
