@@ -86,73 +86,15 @@
 		if(input.startsWith(prefix)){
 
 			var cont = input.slice(prefix.length).split(' ');
-			console.log('input: '+input);
-			console.log('prefix: '+prefix);
-			console.log('cont: '+cont);
 			var args = cont.slice(1);
-			console.log('args: '+args);
-
 			var cmd = bot.commands.get(cont[0]);
-			console.log('cont[0]: '+cont[0]);
+
 			if(cmd) {
 				cmd.run(bot, message, args);
-				console.log('If passed!');
 			}
 			else{
-				cmd.run(bot, message, args);
-				console.log('Else passed!');
-			}
-
-			if(input === prefix + 'HELP'){
-				message.channel.send({embed:{
-					description:commandsList,
-					color:0x2471A3
-				}});
-			}
-			if(input === prefix + 'COMMANDS'){
-				message.channel.send({embed:{
-					description:commandsList,
-					color:0x2471A3
-				}});
-			}
-			if(input.startsWith(prefix + 'USERINFO')){
-				var uicommand = input.toString().split(' ');
-				if(!uicommand[1]){
-					message.channel.send({embed:{
-						description:userInfo(sender),
-						color:0x2471A3
-					}});
-				}
-				// !!!***JAKO BITNO!!!*** Složiti za ostale usere
-			}
-			if(input.startsWith(prefix + 'CLR')){
-				var clrcommand = input.toString().split(' ');
-				if(!clrcommand[1]){
-					message.channel.send({embed:{
-						description:'Error! Please specify the number of messages to clear e.g. <clr 10',
-						color:0x2471A3
-					}});
-					return;
-				}
-				if((clrcommand[1] < 1) || (clrcommand[1] > 99)){
-					message.channel.send({embed:{
-						description:'You need to enter a number between 1 and 99!',
-						color:0x2471A3
-					}});
-				}
-				else{
-					if(sender.id === '764170607004745739'){
-						var nmb=Number(clrcommand[1])+1;
-						message.channel.bulkDelete(nmb);
-					}
-					else{
-						message.channel.send({embed:{
-							description:'You do not have permissions to request the deletion of messages on this server!',
-							color:0x2471A3
-						}});
-						return;
-					}
-				}
+				console.log('Error! Else passed!');
+				return;
 			}
 		}
 		else{
