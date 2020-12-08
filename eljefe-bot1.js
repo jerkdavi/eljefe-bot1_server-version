@@ -31,17 +31,6 @@
 	var owner = process.env.ownerID;
 	var swearword;
 
-	function userInfo(user){
-		var finalString = '';
-		finalString += '**User Info:**\nUser name: **' + user.username + '**\nUser ID: **' + user.id + '**\n';
-
-		var userCreated = user.createdAt.toString().split(' ');
-		finalString += 'Date created **' + userCreated[1] + ' ' + userCreated[2] + ', ' + userCreated[3] + '**\n';
-
-		finalString += 'Message sent to this server: **' + userData[user.id].messagesSent + '** messages';
-		return finalString;
-	}
-
 	bot.on('message', function(message){
 		var sender = message.author;
 		var input = message.content.toUpperCase();
