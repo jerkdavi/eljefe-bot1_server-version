@@ -44,120 +44,122 @@
 	}
 
 	bot.on('message', function(message){
-		if(!input.startsWith(prefix)){
-			console.log('Wrong prefix!');
-			return;
-		}
-		var sender = message.author;
-		var input = message.content.toUpperCase();
-		var cont = input.slice(prefix.length).split(' ');
-		console.log('input: '+input);
-		console.log('prefix: '+prefix);
-		console.log('cont: '+cont);
-		var args = cont.slice(1);
-		console.log('args: '+args);
+		if(input.startsWith(prefix)){
+			var sender = message.author;
+			var input = message.content.toUpperCase();
+			var cont = input.slice(prefix.length).split(' ');
+			console.log('input: '+input);
+			console.log('prefix: '+prefix);
+			console.log('cont: '+cont);
+			var args = cont.slice(1);
+			console.log('args: '+args);
 
-		var cmd = bot.commands.get(cont[0]);
-		console.log('cont[0]: '+cont[0]);
-		if(cmd) {
-			cmd.run(bot, message, args);
-			console.log('If passed!');
-		}
-
-		if((sender.id === '781250071215472640') || (sender.id === '781277535232458763')){
-			return;
-		}
-
-		if(input === prefix + 'HELP'){
-			message.channel.send({embed:{
-				description:commandsList,
-				color:0x2471A3
-			}});
-		}
-
-		if(input === prefix + 'COMMANDS'){
-			message.channel.send({embed:{
-				description:commandsList,
-				color:0x2471A3
-			}});
-		}
-
-		if(!userData[sender.id]){
-			userData[sender.id] = {
-				messagesSent: 0 };
-		}
-
-		userData[sender.id].messagesSent++;
-		fs.writeFile('Storage/userData.json', JSON.stringify(userData), (err) => {
-			if(err){
-				console.error(err);
+			var cmd = bot.commands.get(cont[0]);
+			console.log('cont[0]: '+cont[0]);
+			if(cmd) {
+				cmd.run(bot, message, args);
+				console.log('If passed!');
 			}
-		});
 
-		if(!profanities2[sender.id]){
-			profanities2[sender.id] = {
-				swearwords: 0 };
-		}
-
-		for(var x = 0; x < profanities.length; x++){
-			swearword = profanities[x].toUpperCase();
-			if(input.includes(swearword)){
-
-				profanities2[sender.id].swearwords++;
-				fs.writeFile('Storage/profanities2.json', JSON.stringify(profanities2), (err) => {
-					if(err){
-						console.error(err);
-					}
-				});
-
-				message.delete();
-				sender.send({embed:{
-					description:'Hey! Word **' + swearword + '** is not allowed on our server. Please don\'t use it!',
-					color:0x2471A3
-				}});
+			if((sender.id === '781250071215472640') || (sender.id === '781277535232458763')){
 				return;
 			}
-		}
 
-		if(input.startsWith(prefix + 'USERINFO')){
-			var uicommand = input.toString().split(' ');
-			if(!uicommand[1]){
+			if(input === prefix + 'HELP'){
 				message.channel.send({embed:{
-					description:userInfo(sender),
+					description:commandsList,
 					color:0x2471A3
 				}});
 			}
-			// !!!***JAKO BITNO!!!*** Složiti za ostale usere
-		}
 
-		if(input.startsWith(prefix + 'CLR')){
-			var clrcommand = input.toString().split(' ');
-			if(!clrcommand[1]){
+			if(input === prefix + 'COMMANDS'){
 				message.channel.send({embed:{
-					description:'Error! Please specify the number of messages to clear e.g. <clr 10',
-					color:0x2471A3
-				}});
-				return;
-			}
-			if((clrcommand[1] < 1) || (clrcommand[1] > 99)){
-				message.channel.send({embed:{
-					description:'You need to enter a number between 1 and 99!',
+					description:commandsList,
 					color:0x2471A3
 				}});
 			}
-			else{
-				if(sender.id === '764170607004745739'){
-					var nmb=Number(clrcommand[1])+1;
-					message.channel.bulkDelete(nmb);
+
+			if(!userData[sender.id]){
+				userData[sender.id] = {
+					messagesSent: 0 };
+			}
+
+			userData[sender.id].messagesSent++;
+			fs.writeFile('Storage/userData.json', JSON.stringify(userData), (err) => {
+				if(err){
+					console.error(err);
 				}
-				else{
-					message.channel.send({embed:{
-						description:'You do not have permissions to request the deletion of messages on this server!',
+			});
+
+			if(!profanities2[sender.id]){
+				profanities2[sender.id] = {
+					swearwords: 0 };
+			}
+
+			for(var x = 0; x < profanities.length; x++){
+				swearword = profanities[x].toUpperCase();
+				if(input.includes(swearword)){
+
+					profanities2[sender.id].swearwords++;
+					fs.writeFile('Storage/profanities2.json', JSON.stringify(profanities2), (err) => {
+						if(err){
+							console.error(err);
+						}
+					});
+
+					message.delete();
+					sender.send({embed:{
+						description:'Hey! Word **' + swearword + '** is not allowed on our server. Please don\'t use it!',
 						color:0x2471A3
 					}});
 					return;
 				}
 			}
+
+			if(input.startsWith(prefix + 'USERINFO')){
+				var uicommand = input.toString().split(' ');
+				if(!uicommand[1]){
+					message.channel.send({embed:{
+						description:userInfo(sender),
+						color:0x2471A3
+					}});
+				}
+				// !!!***JAKO BITNO!!!*** Složiti za ostale usere
+			}
+
+			if(input.startsWith(prefix + 'CLR')){
+				var clrcommand = input.toString().split(' ');
+				if(!clrcommand[1]){
+					message.channel.send({embed:{
+						description:'Error! Please specify the number of messages to clear e.g. <clr 10',
+						color:0x2471A3
+					}});
+					return;
+				}
+				if((clrcommand[1] < 1) || (clrcommand[1] > 99)){
+					message.channel.send({embed:{
+						description:'You need to enter a number between 1 and 99!',
+						color:0x2471A3
+					}});
+				}
+				else{
+					if(sender.id === '764170607004745739'){
+						var nmb=Number(clrcommand[1])+1;
+						message.channel.bulkDelete(nmb);
+					}
+					else{
+						message.channel.send({embed:{
+							description:'You do not have permissions to request the deletion of messages on this server!',
+							color:0x2471A3
+						}});
+						return;
+					}
+				}
+			}
+		}
+		else{
+			console.log('Wrong prefix!');
+			return
 		}
 	});
 
