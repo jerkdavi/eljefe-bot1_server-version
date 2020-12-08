@@ -6,6 +6,7 @@
 	module.exports.run = async (bot, message, args) => {
 		var sender = message.author;
 		var input = message.content.toUpperCase();
+		var uicommand = input.toString().split(' ');
 
 		function userInfo(user){
 			var finalString = '';
@@ -19,8 +20,7 @@
 		}
 
 		message.channel.send({embed:{
-			var usrinf = input.toString().split(' ');
-			if(!usrinf[1]){
+			if(!uicommand[1]){
 				message.channel.send({embed:{
 					description:userInfo(sender),
 					color:0x2471A3
