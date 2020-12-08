@@ -48,6 +48,7 @@
 		var input = message.content.toUpperCase();
 		var cont = input.slice(prefix.length).split(' ');
 		console.log('input: '+input);
+		console.log('prefix: '+prefix);
 		console.log('cont: '+cont);
 		var args = cont.slice(1);
 		console.log('args: '+args);
