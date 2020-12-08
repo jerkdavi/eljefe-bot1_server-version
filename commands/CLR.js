@@ -1,6 +1,7 @@
 	/*jshint esversion: 6 */
 
 	module.exports.run = async (bot, message, args) => {
+		var sender = message.author;
 		var input = message.content.toUpperCase();
 
 		var clrcommand = input.toString().split(' ');
