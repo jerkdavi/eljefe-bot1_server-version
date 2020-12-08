@@ -2,6 +2,7 @@
 
 	var fs = require('fs');
 	var userData = JSON.parse(fs.readFileSync('Storage/userData.json', 'utf8'));
+	var sender = message.author;
 
 	function userInfo(user){
 		var finalString = '';
