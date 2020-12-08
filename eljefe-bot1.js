@@ -78,20 +78,14 @@
 			var cmd = bot.commands.get(cont[0]);
 
 			if(cmd) {
-				console.log('cmd: '+cmd);
-				console.log('bot: '+bot);
-				console.log('message: '+message.content);
-				console.log('args[0]: '+args[0]);
-				console.log('args[1]: '+args[1]);
 				cmd.run(bot, message, args);
 			}
 			else{
-				console.log('Error! Else passed!');
+				//console.log('Error! Else passed!');
 				return;
 			}
 		}
 		else{
-			console.log('Wrong prefix!');
 			return;
 		}
 	});
