@@ -10,6 +10,10 @@
 	"author": "ElJefe",
 	"license": "ISC",
 	"dependencies": {
-		"discord.js": "^12.5.1"
+		"discord": "^0.8.2",
+		"discord.js": "^12.5.1",
+		"dotenv": "^8.2.0",
+		"node": "^15.3.0",
+		"node.js": "0.0.1-security"
 	}
 }
