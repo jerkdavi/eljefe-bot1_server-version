@@ -52,7 +52,7 @@
 		var args = cont.slice(1);
 		console.log('args: '+args);
 		
-		if(!input.startsWith(prefix)){
+		if(!(input.startsWith(prefix))){
 			console.log('Wrong prefix!');
 			return;
 		}
