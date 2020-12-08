@@ -44,7 +44,7 @@
 	}
 
 	bot.on('message', function(message){
-		if(!(input.startsWith(prefix))){
+		if(!input.startsWith(prefix)){
 			console.log('Wrong prefix!');
 			return;
 		}
