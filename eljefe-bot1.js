@@ -78,6 +78,10 @@
 			var cmd = bot.commands.get(cont[0]);
 
 			if(cmd) {
+				console.log('cmd: '+cmd);
+				console.log('bot: '+bot);
+				console.log('message: '+message);
+				console.log('args: '+args);
 				cmd.run(bot, message, args);
 			}
 			else{
