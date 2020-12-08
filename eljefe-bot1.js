@@ -9,7 +9,24 @@
 	var profanities2 = JSON.parse(fs.readFileSync('Storage/profanities2.json', 'utf8'));
 
 	var commandsList = fs.readFileSync('Storage/commands.txt', 'utf8');
-
+	bot.commands = new Discord.Collection();
+	fs.readdir('./commands/', (err, files) => {
+		if(err){
+			console.error(err);
+		}
+			
+		var jsfiles = files.filter(f => f.split('.').pop() === 'js');
+		if(jsfiles.length <= 0) { return console.log('No commands found!'); }
+		else { console.log(jsfiles.length + ' commands found!'); }
+		
+		jsfiles.forEach((f, i) => {
+			var cmds= require(`./commands/$(f)`);
+			console.log(`Command ${f} loading...`);
+			bot.commands.set(cmds.config.command, cmds);
+		})
+		
+	})
+	
 	var prefix = process.env.prefix;
 	var owner = process.env.ownerID;
 	var swearword;
@@ -28,9 +45,19 @@
 	bot.on('message', function(message){
 		var sender = message.author;
 		var input = message.content.toUpperCase();
+		var cont = input.slice(prefix.length).split(' ');
+		var args = cont.slice(1);
+		
+		if(!input.startsWith(prefix)){
+			return;
+		}
 
 		if((sender.id === '781250071215472640') || (sender.id === '781277535232458763')){
 			return;
+		}
+		var cmd = bot.commands.get(cont[0])
+		if(cmd) {
+			cmd.run(bot, message, args)
 		}
 
 		if(input === prefix + 'HELP'){
@@ -42,13 +69,6 @@
 		if(input === prefix + 'COMMANDS'){
 			message.channel.send({embed:{
 				description:commandsList,
-				color:0x2471A3
-			}});
-		}
-
-		if(input === prefix + 'PING'){
-			message.channel.send({embed:{
-				description:`Ping successful! The bot ${bot.user.tag}! is online!`,
 				color:0x2471A3
 			}});
 		}
