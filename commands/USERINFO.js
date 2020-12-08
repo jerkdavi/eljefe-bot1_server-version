@@ -19,8 +19,8 @@
 		}
 
 		message.channel.send({embed:{
-			var uicommand = input.toString().split(' ');
-			if(!uicommand[1]){
+			var usrinf = input.toString().split(' ');
+			if(!usrinf[1]){
 				message.channel.send({embed:{
 					description:userInfo(sender),
 					color:0x2471A3
