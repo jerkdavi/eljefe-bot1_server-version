@@ -47,15 +47,20 @@
 		var sender = message.author;
 		var input = message.content.toUpperCase();
 		var cont = input.slice(prefix.length).split(' ');
+		console.log('cont: '+cont);
 		var args = cont.slice(1);
+		console.log('args: '+args);
 		
 		if(!input.startsWith(prefix)){
+			console.log('Wrong prefix!');
 			return;
 		}
 
 		var cmd = bot.commands.get(cont[0]);
+		console.log('cmd: '+cmd);
 		if(cmd) {
 			cmd.run(bot, message, args);
+			console.log('If passed!');
 		}
 
 		if((sender.id === '781250071215472640') || (sender.id === '781277535232458763')){
