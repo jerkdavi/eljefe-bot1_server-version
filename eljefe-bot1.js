@@ -20,7 +20,7 @@
 		else { console.log(jsfiles.length + ' commands found!'); }
 		
 		jsfiles.forEach((f, i) => {
-			var cmds= require(`./commands/$(f)`);
+			var cmds = require(`./commands/${f}`);
 			console.log(`Command ${f} loading...`);
 			bot.commands.set(cmds.config.command, cmds);
 		})
@@ -52,12 +52,13 @@
 			return;
 		}
 
-		if((sender.id === '781250071215472640') || (sender.id === '781277535232458763')){
-			return;
-		}
-		var cmd = bot.commands.get(cont[0])
+		var cmd = bot.commands.get(cont[0]);
 		if(cmd) {
 			cmd.run(bot, message, args)
+		}
+
+		if((sender.id === '781250071215472640') || (sender.id === '781277535232458763')){
+			return;
 		}
 
 		if(input === prefix + 'HELP'){
@@ -66,6 +67,7 @@
 				color:0x2471A3
 			}});
 		}
+
 		if(input === prefix + 'COMMANDS'){
 			message.channel.send({embed:{
 				description:commandsList,
@@ -77,6 +79,7 @@
 			userData[sender.id] = {
 				messagesSent: 0 };
 		}
+
 		userData[sender.id].messagesSent++;
 		fs.writeFile('Storage/userData.json', JSON.stringify(userData), (err) => {
 			if(err){
