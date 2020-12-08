@@ -1,5 +1,7 @@
 	/*jshint esversion: 6 */
-
+	
+	var input = message.content.toUpperCase();
+	
 	module.exports.run = async (bot, message, args) => {
 		var uicommand = input.toString().split(' ');
 		if(!uicommand[1]){
