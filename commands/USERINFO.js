@@ -1,5 +1,6 @@
 	/*jshint esversion: 6 */
 
+	var fs = require('fs');
 	var userData = JSON.parse(fs.readFileSync('Storage/userData.json', 'utf8'));
 
 	function userInfo(user){
