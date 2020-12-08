@@ -10,13 +10,14 @@
 
 	var commandsList = fs.readFileSync('Storage/commands.txt', 'utf8');
 	bot.commands = new Discord.Collection();
+
 	fs.readdir('./commands/', (err, files) => {
 		if(err){
 			console.error(err);
 		}
 			
 		var jsfiles = files.filter(f => f.split('.').pop() === 'js');
-		if(jsfiles.length <= 0) { return console.log('No commands found!'); }
+		if(jsfiles.length <= 0) { return console.log('No commands found!') }
 		else { console.log(jsfiles.length + ' commands found!'); }
 		
 		jsfiles.forEach((f, i) => {
@@ -54,7 +55,7 @@
 
 		var cmd = bot.commands.get(cont[0]);
 		if(cmd) {
-			cmd.run(bot, message, args)
+			cmd.run(bot, message, args);
 		}
 
 		if((sender.id === '781250071215472640') || (sender.id === '781277535232458763')){
