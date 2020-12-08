@@ -5,6 +5,7 @@
 
 	module.exports.run = async (bot, message, args) => {
 		var sender = message.author;
+		var input = message.content.toUpperCase();
 
 		function userInfo(user){
 			var finalString = '';
