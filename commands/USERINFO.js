@@ -7,6 +7,7 @@
 		var sender = message.author;
 		var input = message.content.toUpperCase();
 		var uicommand = input.toString().split(' ');
+		console.log('Checkpoint 2!');
 
 		/*function userInfo(user, guild){
 			var finalString = '';
