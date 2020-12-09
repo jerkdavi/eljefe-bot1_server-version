@@ -27,7 +27,7 @@
 		});	
 	});
 
-	var prefix = process.env.prefix;
+	var prefix = '<';
 	var owner = process.env.ownerID;
 	var swearword;
 
@@ -48,14 +48,11 @@
 		if(!userData[sender.id]){
 			userData[sender.id] = {
 			messagesSent: 0 };
-			console.log('Checkpoint 1!');
 		}
 		userData[sender.id].messagesSent++;
 
 		fs.writeFile('Storage/userData.json', JSON.stringify(userData), (err) => {
-			console.log('Checkpoint 1.1!');
 			if(err){
-				console.log('Checkpoint 1.2!');
 				console.error(err);
 			}
 		});
@@ -89,10 +86,10 @@
 			var cmd = bot.commands.get(cont[0]);
 
 			if(cmd) {
-				cmd.run(bot, message, args);
+				cmd.run(bot, message, args, userData);
 			}
 			else{
-				//console.log('Error! Else passed!');
+				console.log('Error! Else passed!');
 				return;
 			}
 		}
@@ -125,4 +122,4 @@
 		}});
 	});
 
-	bot.login(process.env.DISCORD_TOKEN);
+	bot.login('NzgxMjUwMDcxMjE1NDcyNjQw.X7650w.f8jAjAi45DRhLTYztXtWJ08OxPU');
