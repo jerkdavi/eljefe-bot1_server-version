@@ -3,7 +3,7 @@
 	var fs = require('fs');
 
 	module.exports.run = async (bot, message, args) => {
-		fs.readdir('./commands/', (err, files) => {
+		fs.readdir('./', (err, files) => {
 			if(err){
 				console.error(err);
 			}
@@ -13,8 +13,8 @@
 			else { console.log(jsfiles.length + ' commands found!'); }
 			
 			jsfiles.forEach((f, i) => {
-				delete require.cache[require.resolve(`./commands/${f}`)];
-				var cmds = require(`./commands/${f}`);
+				delete require.cache[require.resolve(`./${f}`)];
+				var cmds = require(`./${f}`);
 				console.log(`Command ${f} loading...`);
 				bot.commands.set(cmds.config.command, cmds);
 			});
