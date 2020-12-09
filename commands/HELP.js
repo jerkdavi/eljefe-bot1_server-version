@@ -1,7 +1,7 @@
 	/*jshint esversion: 6 */
 
 	var fs = require('fs');
-	var commandsList = fs.readFileSync('././Storage/commands.txt', 'utf8');
+	var commandsList = fs.readFileSync('Storage/commands.txt', 'utf8');
 
 	module.exports.run = async (bot, message, args) => {
 		message.channel.send({embed:{
