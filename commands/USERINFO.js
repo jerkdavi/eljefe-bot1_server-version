@@ -1,7 +1,7 @@
 	/*jshint esversion: 6 */
 
 	var fs = require('fs');
-	var userData = JSON.parse(fs.readFileSync('./Storage/userData.json', 'utf8'));
+	var userData = JSON.parse(fs.readFileSync('././Storage/userData.json', 'utf8'));
 
 	module.exports.run = async (bot, message, args) => {
 		var sender = message.author;
