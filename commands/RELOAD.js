@@ -1,5 +1,7 @@
 	/*jshint esversion: 6 */
 
+	var fs = require('fs');
+
 	module.exports.run = async (bot, message, args) => {
 		fs.readdir('./commands/', (err, files) => {
 			if(err){
