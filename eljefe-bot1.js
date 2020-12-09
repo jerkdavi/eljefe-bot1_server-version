@@ -39,17 +39,17 @@
 			return;
 		}
 
-		if(!userData[sender.id + message.guild.id]){
-			userData[sender.id + message.guild.id] = {
-			messagesSent: 0 };
-		}
-		userData[sender.id + message.guild.id].messagesSent++;
-
 		/*if(!userData[sender.id]){
 			userData[sender.id] = {
 			messagesSent: 0 };
 		}*/
 		/*userData[sender.id].messagesSent++;*/
+
+		if(!userData[sender.id + message.guild.id]){
+			userData[sender.id + message.guild.id] = {
+			messagesSent: 0 };
+		}
+		userData[sender.id + message.guild.id].messagesSent++;
 
 		fs.writeFile('Storage/userData.json', JSON.stringify(userData), (err) => {
 			if(err){
