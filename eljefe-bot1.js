@@ -53,6 +53,7 @@
 		userData[sender.id].messagesSent++;
 
 		fs.writeFile('Storage/userData.json', JSON.stringify(userData), (err) => {
+			console.log('Checkpoint 1.1!');
 			if(err){
 				console.error(err);
 			}
