@@ -13,8 +13,8 @@
 			else { console.log(jsfiles.length + ' commands found!'); }
 			
 			jsfiles.forEach((f, i) => {
-				delete require.cache[require.resolve(`./${f}`)];
-				var cmds = require(`./${f}`);
+				delete require.cache[require.resolve(`${f}`)];
+				var cmds = require(`${f}`);
 				console.log(`Command ${f} loading...`);
 				bot.commands.set(cmds.config.command, cmds);
 			});
