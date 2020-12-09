@@ -38,11 +38,19 @@
 		if((sender.id === '781250071215472640') || (sender.id === '781277535232458763')){
 			return;
 		}
-		if(!userData[sender.id]){
-			userData[sender.id] = {
+
+		if(!userData[sender.id + message.guild.id]){
+			userData[sender.id + message.guild.id] = {
 			messagesSent: 0 };
 		}
-		userData[sender.id].messagesSent++;
+		userData[sender.id + message.guild.id].messagesSent++;
+
+		/*if(!userData[sender.id]){
+			userData[sender.id] = {
+			messagesSent: 0 };
+		}*/
+		/*userData[sender.id].messagesSent++;*/
+
 		fs.writeFile('Storage/userData.json', JSON.stringify(userData), (err) => {
 			if(err){
 				console.error(err);
