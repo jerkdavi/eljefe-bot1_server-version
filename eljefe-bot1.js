@@ -55,6 +55,7 @@
 		fs.writeFile('Storage/userData.json', JSON.stringify(userData), (err) => {
 			console.log('Checkpoint 1.1!');
 			if(err){
+				console.log('Checkpoint 1.2!');
 				console.error(err);
 			}
 		});
