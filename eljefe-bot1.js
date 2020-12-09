@@ -10,26 +10,21 @@
 
 	bot.commands = new Discord.Collection();
 
-	fs.readdir('./commands/', (err, files) => {
-		if(err){
-			console.error(err);
+	var initcmd = bot.commands.get('RELOAD');
+		if(initcmd) {
+			console.log('Initial loading of commands.');
+			cmd.run(bot, message, args);
 		}
-			
-		var jsfiles = files.filter(f => f.split('.').pop() === 'js');
-		if(jsfiles.length <= 0) { return console.log('No commands found!'); }
-		else { console.log(jsfiles.length + ' commands found!'); }
-		
-		jsfiles.forEach((f, i) => {
-			var cmds = require(`./commands/${f}`);
-			console.log(`Command ${f} loading...`);
-			bot.commands.set(cmds.config.command, cmds);
-		});
-		
-	});
-	
+		else{
+			//console.log('Error! Else passed!');
+			return;
+		}
+
 	var prefix = process.env.prefix;
 	var owner = process.env.ownerID;
 	var swearword;
+
+	loadCmds();
 
 	bot.on('message', function(message){
 		var sender = message.author;
