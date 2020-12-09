@@ -24,8 +24,6 @@
 	var owner = process.env.ownerID;
 	var swearword;
 
-	loadCmds();
-
 	bot.on('message', function(message){
 		var sender = message.author;
 		var input = message.content.toUpperCase();
