@@ -1,6 +1,6 @@
 	/*jshint esversion: 6 */
 
-	module.exports.run = async (bot, message, args) => {
+	module.exports.run = async (bot, message, args, userData) => {
 		var sender = message.author;
 		var input = message.content.toUpperCase();
 
