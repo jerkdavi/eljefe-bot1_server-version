@@ -1,7 +1,7 @@
 	/*jshint esversion: 6 */
 
 	var fs = require('fs');
-	var userData = JSON.parse(fs.readFileSync('Storage/userData.json', 'utf8'));
+	var userData = JSON.parse(fs.readFileSync('./Storage/userData.json', 'utf8'));
 
 	module.exports.run = async (bot, message, args) => {
 		var sender = message.author;
@@ -27,7 +27,7 @@
 			var userCreated = user.createdAt.toString().split(' ');
 			finalString += 'Date created **' + userCreated[1] + ' ' + userCreated[2] + ', ' + userCreated[3] + '**\n';
 
-			finalString += 'Message sent to this server: **'/* + userData[user.id].messagesSent + '** messages';*/
+			finalString += 'Message sent to this server: **' + userData[user.id].messagesSent + '** messages';
 			return finalString;
 		}
 
