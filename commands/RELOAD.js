@@ -3,7 +3,7 @@
 	var fs = require('fs');
 
 	module.exports.run = async (bot, message, args) => {
-		fs.readdir('./', (err, files) => {
+		fs.readdir('', (err, files) => {
 			if(err){
 				console.error(err);
 			}
