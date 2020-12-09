@@ -48,6 +48,7 @@
 		if(!userData[sender.id]){
 			userData[sender.id] = {
 			messagesSent: 0 };
+			console.log('Checkpoint 1!');
 		}
 		userData[sender.id].messagesSent++;
 
