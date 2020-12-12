@@ -106,7 +106,7 @@
 				message.delete();
 				//console.log('Step 048');
 				sender.send({embed:{
-					description:`Hey! Word **' ${swearword} '** is not allowed on our server. Please don\'t use it!`,
+					description:`Hey! Word **${swearword}** is not allowed on our server. Please don\'t use it!`,
 					color:0x2471A3
 				}});
 				//console.log('Step 049');
