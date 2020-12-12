@@ -50,7 +50,7 @@
 		//console.log('Step 025');
 		let sender = message.author;
 		//console.log('Step 026');
-		if((sender.id === '781250071215472640') || (sender.id === '781277535232458763')){
+		if((sender.id === '781250071215472640') || (sender.id === '781277535232458763') || (sender.id === '786892385682194442')){
 			//console.log('Step 027');
 			return;
 		}
