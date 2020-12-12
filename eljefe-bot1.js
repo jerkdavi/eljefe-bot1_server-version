@@ -40,7 +40,8 @@
 		//console.log('Step 020');
 	});
 	//console.log('Step 021');
-	let prefix = process.env.prefix;
+	let prefix = '<';
+	//let prefix = process.env.prefix;
 	//console.log('Step 022');
 	let owner = process.env.ownerID;
 	//console.log('Step 023');
@@ -105,7 +106,7 @@
 				message.delete();
 				//console.log('Step 048');
 				sender.send({embed:{
-					description:'Hey! Word **' + swearword + '** is not allowed on our server. Please don\'t use it!',
+					description:`Hey! Word **' ${swearword} '** is not allowed on our server. Please don\'t use it!`,
 					color:0x2471A3
 				}});
 				//console.log('Step 049');
@@ -174,5 +175,6 @@
 		//console.log('Step 076');
 	});
 	//console.log('Step 077');
-	bot.login(process.env.DISCORD_TOKEN);
+	bot.login('NzgxMjUwMDcxMjE1NDcyNjQw.X7650w.f8jAjAi45DRhLTYztXtWJ08OxPU');
+	//bot.login(process.env.DISCORD_TOKEN);
 	//console.log('Step 078');
