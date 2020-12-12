@@ -14,13 +14,13 @@
 			//console.log('Step 406');
 			let finalString = '';
 			//console.log('Step 407');
-			finalString += '**User Info:**\nUser name: **' + user.username + '**\nUser ID: **' + user.id + '**\n';
+			finalString += `**User Info:**\nUser name: **${user.username}**\nUser ID: **${user.id}**\n`;
 			//console.log('Step 408');
 			let userCreated = user.createdAt.toString().split(' ');
 			//console.log('Step 409');
-			finalString += 'Date created **' + userCreated[1] + ' ' + userCreated[2] + ', ' + userCreated[3] + '**\n';
+			finalString += `Date created **${userCreated[1]} ${userCreated[2]}, ${userCreated[3]}**\n`;
 			//console.log('Step 410');
-			finalString += 'Message sent to this server: **' + userData[user.id].messagesSent + '** messages';
+			finalString += `Message sent to this server: **${userData[user.id].messagesSent}** messages`;
 			//console.log('Step 411');
 			return finalString;
 		}
