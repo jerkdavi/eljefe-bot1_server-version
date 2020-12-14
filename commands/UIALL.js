@@ -4,8 +4,7 @@
 		let fs = require('fs');
 		let sender = message.author;
 		let owner = process.env.ownerID;
-		if(!(sender.id === '764170607004745739')){
-		//if(!(sender.id === owner)){
+		if(!(sender.id === owner)){
 			message.channel.send({embed:{
 				description:'You do not have permissions to request the userdata of all users on this server!',
 				color:0xD4AF37
