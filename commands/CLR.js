@@ -6,7 +6,8 @@
 		//console.log('Step 102');
 		let prefix = process.env.prefix;
 		//console.log('Step 103');
-		if(!(sender.id === '764170607004745739')){
+		let owner = process.env.ownerID;
+		if(!(sender.id === owner)){
 			//console.log('Step 104');
 			message.channel.send({embed:{
 				description:'You do not have permissions to request the deletion of messages on this server!',
