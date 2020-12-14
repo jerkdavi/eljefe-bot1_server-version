@@ -25,32 +25,25 @@
 				color:0x2471A3
 			}});
 			//console.log('Step 109');
+			return;
 		}
 		//console.log('Step 110');
-		else{
+		if(!(sender.id === '764170607004745739')){
 			//console.log('Step 111');
-			if(sender.id === '764170607004745739'){
-				//console.log('Step 112');
-				let nmb=Number(clrcommand[1])+1;
-				//console.log('Step 113');
-				message.channel.bulkDelete(nmb);
-				//console.log('Step 114');
-			}
-			//console.log('Step 115');
-			else{
-				//console.log('Step 116');
-				message.channel.send({embed:{
-					description:'You do not have permissions to request the deletion of messages on this server!',
-					color:0x2471A3
-				}});
-				//console.log('Step 117');
-				return;
-			}
-			//console.log('Step 118');
+			message.channel.send({embed:{
+				description:'You do not have permissions to request the deletion of messages on this server!',
+				color:0x2471A3
+			}});
+			//console.log('Step 112');
+			return;
 		}
-		//console.log('Step 119');
+		//console.log('Step 113');
+		let nmb=Number(clrcommand[1])+1;
+		//console.log('Step 114');
+		message.channel.bulkDelete(nmb);
+		//console.log('Step 115');
 	}
-	//console.log('Step 120');
+	//console.log('Step 116');
 	module.exports.config = {
 		command:'CLR'
 	}
