@@ -6,10 +6,6 @@
 		//console.log('Step 402');
 		let sender = message.author;
 		//console.log('Step 403');
-		let input = message.content.toUpperCase();
-		//console.log('Step 404');
-		let uicommand = input.toString().split(' ');
-		//console.log('Step 405');
 		function userInfo(user){
 			//console.log('Step 406');
 			let finalString = '';
@@ -25,16 +21,43 @@
 			return finalString;
 		}
 		//console.log('Step 412');
-		if(!uicommand[1]){
-			//console.log('Step 413');
-			message.channel.send({embed:{
-				description:userInfo(sender),
-				color:0x2471A3
-			}});
-			//console.log('Step 414');
+		let definedUser = '';
+		if(!args[1]){
+			definedUser = message.author;
+			//console.log(`${definedUser}`);
 		}
-		//console.log('Step 415');
-		// !!!***JAKO BITNO!!!*** Složiti za ostale usere
+		else{
+			let firstMentioned = message.mentions.users.first();
+			if(firstMentioned === undefined){
+				if(args[2].startsWith('@')){
+					message.channel.send({embed:{
+						description:`You misspelled the user's name!`,
+						color:0xD4AF37
+					}});
+					return;
+				}
+				message.channel.send({embed:{
+					description:`You didn't use the correct call function e.g. @${args[2]}!`,
+					color:0xD4AF37
+				}});
+				return;
+			}
+			definedUser = firstMentioned;
+			//console.log(`${definedUser}`);
+		}
+		if(!userEco[definedUser.id]){
+			message.channel.send({embed:{
+				description:`User ${definedUser} is not inicialized!\nThe user needs to send at least one message to this channel so the bot can initialize her/him!`,
+				color:0xD4AF37
+			}});
+			return;
+		}
+		//console.log('Step 413');
+		message.channel.send({embed:{
+			description:userInfo(definedUser),
+			color:0x2471A3
+		}});
+		//console.log('Step 414');
 	}
 	module.exports.config = {
 		command:'USERINFO'
