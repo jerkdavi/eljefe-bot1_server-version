@@ -4,8 +4,6 @@
 		//console.log('Step 401');
 		let fs = require('fs');
 		//console.log('Step 402');
-		let sender = message.author;
-		//console.log('Step 403');
 		function userInfo(user){
 			//console.log('Step 406');
 			let finalString = '';
