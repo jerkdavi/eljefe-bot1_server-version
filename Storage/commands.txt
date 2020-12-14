@@ -4,4 +4,3 @@ List of Commands:
 <ping - Pings the bot
 <userinfo - Returns your user info
 <userinfo [x] - Returns [x]'s user info --> Still working on this!
-<clr xx - Clears the inputed number of messages
