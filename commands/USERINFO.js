@@ -24,32 +24,16 @@
 			//console.log('Step 411');
 			return finalString;
 		}
-		//console.log('Step 413');
-		/*function userInfo(user, guild){
-			let finalString = '';
-			finalString += '**User Info:**\nUser name: **' + user.username + '**\nUser ID: **' + user.id + '**\n';
-
-			let userCreated = user.createdAt.toString().split(' ');
-			finalString += 'Date created **' + userCreated[1] + ' ' + userCreated[2] + ', ' + userCreated[3] + '**\n';
-
-			finalString += 'Message sent to this server: **' + userData[user.id + guild.id].messagesSent + '** messages';
-			return finalString;
-		}*/
+		//console.log('Step 412');
 		if(!uicommand[1]){
-			//console.log('Step 414');
+			//console.log('Step 413');
 			message.channel.send({embed:{
 				description:userInfo(sender),
 				color:0x2471A3
 			}});
-			//console.log('Step 415');
+			//console.log('Step 414');
 		}
-		//console.log('Step 416');
-		/*if(!uicommand[1]){
-			message.channel.send({embed:{
-				description:userInfo(sender, message.guild.id),
-				color:0x2471A3
-			}});
-		}*/
+		//console.log('Step 415');
 		// !!!***JAKO BITNO!!!*** Složiti za ostale usere
 	}
 	module.exports.config = {
