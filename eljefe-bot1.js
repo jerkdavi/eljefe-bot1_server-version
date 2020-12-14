@@ -24,7 +24,7 @@
 		let jsfiles = files.filter(f => f.split('.').pop() === 'js');
 		//console.log('Step 011');
 		if(jsfiles.length <= 0) { return /*console.log('Step 012'); */console.log('No commands found!'); }
-		else { /*console.log('Step 013'); */console.log(`${jsfiles.length} commands found!`); }
+		if(jsfiles.length > 0) { /*console.log('Step 013'); */console.log(`${jsfiles.length} commands found!`); }
 		//console.log('Step 014');
 		jsfiles.forEach((f, i) => {
 			//console.log('Step 015');
@@ -40,8 +40,7 @@
 		//console.log('Step 020');
 	});
 	//console.log('Step 021');
-	let prefix = '<';
-	//let prefix = process.env.prefix;
+	let prefix = process.env.prefix;
 	//console.log('Step 022');
 	let owner = process.env.ownerID;
 	//console.log('Step 023');
@@ -65,11 +64,6 @@
 		//console.log('Step 031');
 		userData[sender.id].messagesSent++;
 		//console.log('Step 032');
-		/*if(!userData[sender.id + message.guild.id]){
-			userData[sender.id + message.guild.id] = {
-			messagesSent: 0 };
-		}*/
-		/*userData[sender.id + message.guild.id].messagesSent++;*/
 		fs.writeFile('Storage/userData.json', JSON.stringify(userData), (err) => {
 			//console.log('Step 033');
 			if(err){
@@ -90,7 +84,7 @@
 			//console.log('Step 040');
 			swearword = profanities[x].toUpperCase();
 			//console.log('Step 041');
-				if(message.content.toUpperCase().includes(swearword)){
+			if(message.content.toUpperCase().includes(swearword)){
 				//console.log('Step 042');
 				profanities2[sender.id].swearwords++;
 				//console.log('Step 043');
@@ -115,66 +109,57 @@
 			//console.log('Step 050');
 		}
 		//console.log('Step 051');
-		if(message.content.startsWith(prefix)){
+		if(!message.content.startsWith(prefix)){
 			//console.log('Step 052');
-			let args = message.content.toString().split(' ');
-			//console.log('Step 053');
-			let input = args[0].toUpperCase();
-			//console.log('Step 054');
-			let cont = input.slice(prefix.length).split(' ');
-			//console.log('Step 055');
-			let cmd = bot.commands.get(cont[0]);
-			//console.log('Step 056');
-			if(cmd) {
-				//console.log('Step 057');
-				cmd.run(bot, message, args, userData);
-				//console.log('Step 058');
-			}
-			//console.log('Step 059');
-			else{
-				//console.log('Step 060');
-				return;
-			}
-			//console.log('Step 061');
-		}
-		//console.log('Step 062');
-		else{
-			//console.log('Step 063');
 			return;
 		}
+		//console.log('Step 053');
+		let args = message.content.toString().split(' ');
+		//console.log('Step 054');
+		let input = args[0].toUpperCase();
+		//console.log('Step 055');
+		let cont = input.slice(prefix.length).split(' ');
+		//console.log('Step 056');
+		let cmd = bot.commands.get(cont[0]);
+		//console.log('Step 057');
+		if(!cmd) {
+			//console.log('Step 058');
+			return;
+		}
+		//console.log('Step 059');
+		cmd.run(bot, message, args, userData);
+		//console.log('Step 060');
+	});
+	//console.log('Step 061');
+	bot.on('ready', function(ready){
+		//console.log('Step 062');
+		console.log(`Logged in as ${bot.user.tag}!`);
+		//console.log('Step 063');
+		bot.user.setStatus('Online');
 		//console.log('Step 064');
 	});
 	//console.log('Step 065');
-	bot.on('ready', function(ready){
+	bot.on('guildMemberAdd', function(member){
 		//console.log('Step 066');
-		console.log(`Logged in as ${bot.user.tag}!`);
+		let channel = bot.channels.cache.get('778340125389488169');
 		//console.log('Step 067');
-		bot.user.setStatus('Online');
+		channel.send({embed:{
+			description:`Hey ${member}, welcome to **ElJefe Discord Server**! Make sure to read and follow all rules.`,
+			color:0x2471A3
+		}});
 		//console.log('Step 068');
 	});
 	//console.log('Step 069');
-	bot.on('guildMemberAdd', function(member){
+	bot.on('guildMemberRemove', function(member){
 		//console.log('Step 070');
-		let channel = bot.channels.cache.get('778340125389488169');
+		let channel = bot.channels.cache.get('783416981776498748');
 		//console.log('Step 071');
 		channel.send({embed:{
-			description:`Hey ${member}, welcome to **ElJefe Discord Server**! Make sure to read and follow all rules.`,
+			description:`User ${member.user.username} left the **ElJefe Discord Server**. We're sorry to see you go :disappointed_relieved:.`,
 			color:0x2471A3
 		}});
 		//console.log('Step 072');
 	});
 	//console.log('Step 073');
-	bot.on('guildMemberRemove', function(member){
-		//console.log('Step 074');
-		let channel = bot.channels.cache.get('783416981776498748');
-		//console.log('Step 075');
-		channel.send({embed:{
-			description:`User ${member.user.username} left the **ElJefe Discord Server**. We're sorry to see you go :disappointed_relieved:.`,
-			color:0x2471A3
-		}});
-		//console.log('Step 076');
-	});
-	//console.log('Step 077');
-	bot.login('NzgxMjUwMDcxMjE1NDcyNjQw.X7650w.f8jAjAi45DRhLTYztXtWJ08OxPU');
-	//bot.login(process.env.DISCORD_TOKEN);
-	//console.log('Step 078');
+	bot.login(process.env.DISCORD_TOKEN);
+	//console.log('Step 074');
